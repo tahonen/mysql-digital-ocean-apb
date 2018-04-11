@@ -257,7 +257,7 @@ If you followed my instruction apb_name field value is `dh-mysql-digital-ocean-a
 
 ## Testing that it works
 
-````
+```
 # create new project
 $ oc new-project apb-test
 # process template
@@ -273,6 +273,20 @@ If you want to see what happens, you need to add these to asb configuration unde
 
 Ansible Service Broker does its magic in dynamically created namespaces and by default those namespaces are deleted after execution. To check ansible logs openshift one of those namespace and check container logs from there
 
+If everything when ok you should see resources like This
 
+```
+$ oc get svc,endpoints,secrets -n apb-test
+NAME        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+svc/mysql   ClusterIP   172.30.13.241   <none>        3306/TCP   4m
+
+NAME       ENDPOINTS             AGE
+ep/mysql   167.99.214.136:3306   4m
+
+NAME                               TYPE                                  DATA      AGE
+...
+secrets/mysql-credentials          Opaque                                6         3m
+secrets/mysql-key                  Opaque                                2         4m
+```
 
 NOTE: will add app template later
