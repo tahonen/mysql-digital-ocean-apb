@@ -25,11 +25,11 @@ objects:
 - apiVersion: servicecatalog.k8s.io/v1beta1
   kind: ServiceBinding
   metadata:
-    name: catalog-mysql-binding
+    name: mysql-binding
   spec:
     instanceRef:
-      name: catalog-mysql-instance
-    secretName: catalog-mysql-credentials
+      name: mysql-instance
+    secretName: mysql-credentials
 parameters:
 - description: Database user name
   displayName: Database Username

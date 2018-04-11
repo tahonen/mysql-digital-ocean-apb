@@ -260,6 +260,11 @@ If you followed my instruction apb_name field value is `dh-mysql-digital-ocean-a
 
 ## Testing that it works
 
-
+````
+# create new project
+$ oc new-project apb-test
+# process template
+$ oc process -f https://raw.githubusercontent.com/tahonen/mysql-digital-ocean-apb/master/openshift/testing.yml | oc create -f -
+```
 
 will add app template later
