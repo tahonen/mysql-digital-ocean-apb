@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Template
+metadata:
+  annotations:
+    description: Template for testing APB
+    iconClass: icon-mysql-database
+    tags: mysql,database
+  name: mysql-digital-ocean-apb
+objects:
+- apiVersion: servicecatalog.k8s.io/v1beta1
+  kind: ServiceInstance
+  metadata:
+    name: mysql-instance
+    labels:
+      component: mysql
+  spec:
+    clusterServiceClassExternalName: dh-mysql-digital-ocean-apb
+    clusterServicePlanExternalName: 512mb
+    parameters:
+      service_name: mysql
+      mysql_database: test
+      mysql_user: ${DB_USERNAME}
+      mysql_password: ${DB_PASSWORD}
+      mysql_version: 5.7
+- apiVersion: servicecatalog.k8s.io/v1beta1
+  kind: ServiceBinding
+  metadata:
+    name: catalog-mysql-binding
+  spec:
+    instanceRef:
+      name: catalog-mysql-instance
+    secretName: catalog-mysql-credentials
+parameters:
+- description: Database user name
+  displayName: Database Username
+  from: user[a-zA-Z0-9]{3}
+  generate: expression
+  name: DB_USERNAME
+  required: true
+- description: Database user password
+  displayName: Database Password
+  from: '[a-zA-Z0-9]{8}'
+  generate: expression
+  name: DB_PASSWORD
+  required: true
