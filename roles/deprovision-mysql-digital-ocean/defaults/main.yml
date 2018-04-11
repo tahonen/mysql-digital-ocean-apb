@@ -1,0 +1,2 @@
+---
+api_key: "{{ lookup('file', '/etc/apb-secrets/apb-digital-ocean-apikey/api_key') }}"

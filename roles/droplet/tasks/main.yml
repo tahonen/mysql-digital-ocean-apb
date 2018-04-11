@@ -1,0 +1,71 @@
+- name: create key pair
+  shell: |
+    ssh-keygen -b 2048 -t rsa -f /tmp/id_rsa -q -N ""
+- name: deploy public key
+  digital_ocean:
+    state: present
+    command: ssh
+    name: "{{ _apb_service_instance_id }}"
+    api_token: "{{ api_key }}"
+    ssh_pub_key: "{{ my_pub_key }}"
+  register: do_droplet
+
+- name: create digital ocean droplet for MySQL
+  digital_ocean:
+    state: present
+    command: droplet
+    name: "{{service_name}}"
+    api_token: "{{ api_key }}"
+    size_id: "{{_apb_plan_id}}"
+    ssh_key_ids: "{{ do_droplet.ssh_key.id }}"
+    region_id: "{{do_region}}"
+    image_id: "{{do_image}}"
+    wait_timeout: 500
+  register: do_droplet
+
+- name: create tag from apb instance id
+  uri:
+    url: https://api.digitalocean.com/v2/tags
+    method: POST
+    status_code: 200,201,204
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ api_key }}"
+    body: >
+      {'name':'{{ _apb_service_instance_id }}'}
+
+
+- name: tag droplet
+  uri:
+    url: "https://api.digitalocean.com/v2/tags/{{ _apb_service_instance_id }}/resources"
+    method: POST
+    status_code: 200,201,204
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ api_key }}"
+    body: >
+      {'resources':[{'resource_id':'{{ do_droplet.droplet.id }}','resource_type':'droplet'}]}
+
+- name: store droplet ip as fact
+  set_fact:
+    droplet_ip: "{{ do_droplet.droplet.ip_address }}"
+
+- name: wait for droplet to start
+  local_action:
+    module: wait_for
+    host: "{{ do_droplet.droplet.ip_address }}"
+    port: 22
+    delay: 5
+    timeout: 300
+
+- debug: msg="ID is {{ do_droplet.droplet.id }}"
+- debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
+
+
+- name: add new droplet to inventory
+  add_host:
+    name="{{ do_droplet.droplet.ip_address }}"
+    ansible_ssh_private_key_file=/tmp/id_rsa
+    groups=mysql

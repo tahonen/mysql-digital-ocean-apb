@@ -1,2 +1,9 @@
-# mysql-digital-ocean-apb
-Ansible Playbook Bundle for provisioning MySQL from Digital Ocean
+MySQL on Digital Ocean droplet APB
+
+Docs coming soon
+
+## Issues
+
+1. Add verify role verify that MySQL is running.
+
+2. Add region as enum to parameters
