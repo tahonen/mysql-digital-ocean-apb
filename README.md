@@ -31,7 +31,7 @@ You will need following to get started.
 ![Image 1: Create new access token](images/create_token.png "Image 1: Create new access token")
 
 
-## Propare your Openshift
+## Prepare your Openshift
 
 By default Ansible service broker is configured only to check playbook bundles from Openshift's internal container registry and from Red Hat Container Catalog (rhcc).
 
@@ -173,7 +173,7 @@ log: {color: true, level: debug, stdout: true}
 ...
 ```
 
-You should see somethign like this.
+You should see something like this.
 
 ```
 [2018-04-11T12:22:42.163Z] [DEBUG] - DockerHubAdapter::GetImages
