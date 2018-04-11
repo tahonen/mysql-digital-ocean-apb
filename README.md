@@ -278,4 +278,4 @@ Ansible Service Broker does its magic in dynamically created namespaces and by d
 
 
 
-will add app template later
+NOTE: will add app template later
