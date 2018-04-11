@@ -267,4 +267,15 @@ $ oc new-project apb-test
 $ oc process -f https://raw.githubusercontent.com/tahonen/mysql-digital-ocean-apb/master/openshift/testing.yml | oc create -f -
 ```
 
+If you want to see what happens, you need to add these to asb configuration under openshift section.
+
+```
+  keep_namespace: true
+  keep_namespace_on_error: true
+```
+
+Ansible Service Broker does its magic in dynamically created namespaces and by default those namespaces are deleted after execution. To check ansible logs openshift one of those namespace and check container logs from there
+
+
+
 will add app template later
