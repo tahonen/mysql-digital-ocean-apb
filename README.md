@@ -25,14 +25,11 @@ You will need following to get started.
 
 1. Log in to your Digital Ocean account. Create one if you dont have one. https://digitalocean.com
 2. Once account is created and you are logged in, go to API sections. https://cloud.digitalocean.com/settings/api
-3. Create new personal access token (images 1 and 2). You will need Read/Write scopes. Token name is irrelevant
-4. After you generate new token it will be displayed to you with Copy link (image 3). Store that token somewhere safe for few minutes.
+3. Create new personal access token (images 1 and [image 2](images/create_token.png)). You will need Read/Write scopes. Token name is irrelevant
+4. After you generate new token it will be displayed to you with Copy link ([image 3](images/create_token_3.png)). Store that token somewhere safe for few minutes.
 
 ![Image 1: Create new access token](images/create_token.png "Image 1: Create new access token")
 
-![Image 2: Give name and scope](images/create_token_2.png "Image 2: Give name and scope")
-
-![Image 3: Copy token](images/create_token_3.png "Image 3: Copy token")
 
 ## Propare your Openshift
 
