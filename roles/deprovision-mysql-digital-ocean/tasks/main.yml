@@ -49,8 +49,8 @@
     namespace: '{{ namespace }}'
     state: absent
   ignore_errors: yes
-  
-- name: "delete {{service_name}}-key service"
+
+- name: "delete {{service_name}}-key secret"
   k8s_v1_secret:
     name: "{{service_name}}-key"
     namespace: '{{ namespace }}'
